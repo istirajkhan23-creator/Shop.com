@@ -125,3 +125,77 @@ displayProducts();
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Theme</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; }
+    header { background:#222; color:#fff; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { margin:0; font-size:24px; }
+    nav a { color:#fff; margin-left:20px; text-decoration:none; }
+    nav a:hover { text-decoration:underline; }
+    .hero { background:#ff6600; color:#fff; text-align:center; padding:60px 20px; }
+    .hero h2 { margin:0; font-size:36px; }
+    .container { padding:40px 50px; }
+    .products { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+    .product-card { background:#fff; border-radius:10px; padding:20px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .product-card img { width:100%; height:200px; object-fit:cover; border-radius:10px; }
+    .product-card h3 { margin:10px 0; font-size:18px; }
+    .product-card p { color:#555; }
+    footer { background:#222; color:#fff; text-align:center; padding:15px; margin-top:40px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MyStore</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to MyStore</h2>
+    <p>Professional E-commerce Theme</p>
+  </section>
+
+  <div class="container">
+    <h2>Featured Products</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>$49.99</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>$59.99</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>$29.99</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250" alt="Product 4">
+        <h3>Product 4</h3>
+        <p>$99.99</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 MyStore. All rights reserved.
+  </footer>
+
+</body>
+</html>
+
