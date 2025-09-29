@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Professional Store Theme</title>
+  <title>MyStore - Complete E-commerce</title>
   <style>
     body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; }
     header { background:#222; color:#fff; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; }
@@ -18,6 +18,13 @@
     .product-card img { width:100%; height:200px; object-fit:cover; border-radius:10px; }
     .product-card h3 { margin:10px 0; font-size:18px; }
     .product-card p { color:#555; }
+    .product-card button { background:#ff6600; color:#fff; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
+    .product-card button:hover { background:#e65c00; }
+    #cart { position:fixed; top:20px; right:20px; background:#fff; border-radius:10px; padding:15px; box-shadow:0 2px 6px rgba(0,0,0,0.2); width:250px; display:none; }
+    #cart h3 { margin-top:0; }
+    #cart ul { list-style:none; padding:0; max-height:200px; overflow-y:auto; }
+    #cart li { margin-bottom:10px; }
+    #cart button { margin-top:10px; background:#222; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; }
     footer { background:#222; color:#fff; text-align:center; padding:15px; margin-top:40px; }
   </style>
 </head>
@@ -30,169 +37,97 @@
       <a href="#">Shop</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
+      <a href="#" onclick="toggleCart()">Cart 🛒</a>
     </nav>
   </header>
 
   <section class="hero">
     <h2>Welcome to MyStore</h2>
-    <p>Professional E-commerce Theme</p>
+    <p>Shop the best products online</p>
   </section>
 
   <div class="container">
     <h2>Featured Products</h2>
     <div class="products">
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1600185365160-9d44e5a42f78?auto=format&fit=crop&w=400&q=80" alt="Product 1">
+      <div class="product-card" data-name="Leather Bag" data-price="49.99">
+        <img src="https://images.unsplash.com/photo-1600185365160-9d44e5a42f78?auto=format&fit=crop&w=400&q=80" alt="Leather Bag">
         <h3>Leather Bag</h3>
         <p>$49.99</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
       </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1616627980710-3f33ee2de77f?auto=format&fit=crop&w=400&q=80" alt="Product 2">
+      <div class="product-card" data-name="Smart Watch" data-price="59.99">
+        <img src="https://images.unsplash.com/photo-1616627980710-3f33ee2de77f?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
         <h3>Smart Watch</h3>
         <p>$59.99</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
       </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1600180758895-f6db02f07b1f?auto=format&fit=crop&w=400&q=80" alt="Product 3">
+      <div class="product-card" data-name="Headphones" data-price="29.99">
+        <img src="https://images.unsplash.com/photo-1600180758895-f6db02f07b1f?auto=format&fit=crop&w=400&q=80" alt="Headphones">
         <h3>Headphones</h3>
         <p>$29.99</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
       </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1616627883488-b8e1a3b94c42?auto=format&fit=crop&w=400&q=80" alt="Product 4">
+      <div class="product-card" data-name="Sneakers" data-price="99.99">
+        <img src="https://images.unsplash.com/photo-1616627883488-b8e1a3b94c42?auto=format&fit=crop&w=400&q=80" alt="Sneakers">
         <h3>Sneakers</h3>
         <p>$99.99</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
       </div>
     </div>
+  </div>
+
+  <div id="cart">
+    <h3>Shopping Cart</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="total">0.00</span></p>
+    <button onclick="checkout()">Checkout</button>
   </div>
 
   <footer>
     &copy; 2025 MyStore. All rights reserved.
   </footer>
 
+  <script>
+    let cart = [];
+    function addToCart(button) {
+      const card = button.parentElement;
+      const name = card.dataset.name;
+      const price = parseFloat(card.dataset.price);
+      cart.push({name, price});
+      updateCart();
+      alert(name + " added to cart!");
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item.name + " - $" + item.price.toFixed(2);
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function toggleCart() {
+      const cartDiv = document.getElementById('cart');
+      cartDiv.style.display = cartDiv.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function checkout() {
+      if(cart.length === 0){
+        alert("Cart is empty!");
+        return;
+      }
+      alert("Thank you for your purchase! Total: $" + document.getElementById('total').textContent);
+      cart = [];
+      updateCart();
+      toggleCart();
+    }
+  </script>
+
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional E-commerce Store</title>
-<style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; }
-  header { background:#222; color:#fff; padding:1rem; text-align:center; }
-  nav { margin-top:0.5rem; }
-  nav button { margin:0 0.3rem; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; background:#007bff; color:#fff; }
-  .container { padding:1rem; max-width:1200px; margin:auto; }
-  .search-bar { margin-bottom:1rem; }
-  input[type="text"] { padding:0.5rem; width:100%; max-width:300px; }
-  .products { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; }
-  .product { background:#fff; padding:1rem; border-radius:8px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-  .product img { max-width:100%; border-radius:8px; }
-  .product button { margin-top:0.5rem; padding:0.5rem 1rem; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-  .cart { position:fixed; top:1rem; right:1rem; background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.2); width:250px; max-height:90vh; overflow:auto; }
-  .cart h3 { margin-top:0; }
-  .cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>Professional E-commerce Store</h1>
-  <nav>
-    <button onclick="filterCategory('all')">All</button>
-    <button onclick="filterCategory('clothing')">Clothing</button>
-    <button onclick="filterCategory('bags')">Bags</button>
-    <button onclick="filterCategory('accessories')">Accessories</button>
-  </nav>
-</header>
-
-<div class="container">
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search products..." onkeyup="filterProducts()">
-  </div>
-
-  <div class="products" id="products">
-    <!-- Products will be inserted here -->
-  </div>
-</div>
-
-<div class="cart">
-  <h3>Shopping Cart</h3>
-  <div id="cart-items"></div>
-  <strong>Total: $<span id="cart-total">0</span></strong>
-  <button onclick="checkout()">Checkout</button>
-</div>
-
-<script>
-const productList = [
-  {name:'Men T-Shirt', category:'clothing', price:20, img:'https://via.placeholder.com/250'},
-  {name:'Jeans', category:'clothing', price:30, img:'https://via.placeholder.com/250'},
-  {name:'Leather Bag', category:'bags', price:45, img:'https://via.placeholder.com/250'},
-  {name:'Backpack', category:'bags', price:50, img:'https://via.placeholder.com/250'},
-  {name:'Sunglasses', category:'accessories', price:15, img:'https://via.placeholder.com/250'},
-  {name:'Watch', category:'accessories', price:60, img:'https://via.placeholder.com/250'}
-];
-
-let cart = [];
-
-function displayProducts(products = productList) {
-  const container = document.getElementById('products');
-  container.innerHTML = '';
-  products.forEach((p, index) => {
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
-      <h2>${p.name}</h2>
-      <p>$${p.price.toFixed(2)}</p>
-      <button onclick="addToCart(${index})">Add to Cart</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function addToCart(index) {
-  cart.push(productList[index]);
-  updateCart();
-}
-
-function updateCart() {
-  const cartItems = document.getElementById('cart-items');
-  cartItems.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, i) => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `${item.name} - $${item.price.toFixed(2)} <button onclick="removeFromCart(${i})">Remove</button>`;
-    cartItems.appendChild(div);
-  });
-  document.getElementById('cart-total').textContent = total.toFixed(2);
-}
-
-function removeFromCart(index) {
-  cart.splice(index,1);
-  updateCart();
-}
-
-function checkout() {
-  if(cart.length === 0) { alert('Cart is empty!'); return; }
-  alert('Thank you for your purchase! Total: $' + cart.reduce((sum, item) => sum + item.price, 0).toFixed(2));
-  cart = [];
-  updateCart();
-}
-
-function filterCategory(category) {
-  if(category === 'all') { displayProducts(); return; }
-  displayProducts(productList.filter(p => p.category === category));
-}
-
-function filterProducts() {
-  const query = document.getElementById('search').value.toLowerCase();
-  displayProducts(productList.filter(p => p.name.toLowerCase().includes(query)));
-}
-
-// Initial display
-displayProducts();
-</script>
 
